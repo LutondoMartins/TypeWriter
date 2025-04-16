@@ -913,7 +913,7 @@ function shareResults() {
   const wpm = resultWpm.textContent;
   const accuracy = resultAccuracy.textContent;
   const errors = resultErrors.textContent;
-  const url = 'https://typemaster.example.com';
+  const url = 'https://typewriter-game.vercel.app/';
   let shareText = translations[currentLanguage].share_text
     .replace('{wpm}', wpm)
     .replace('{accuracy}', accuracy)
