@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TypeMaster - Creator Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="dashboard.css">
+
+<body class="bg-gradient-to-br from-blue-100 to-indigo-200 min-h-screen">
+  <div class="container mx-auto px-4 py-8 max-w-6xl">
+    <header class="flex justify-between items-center mb-8">
+      <h1 class="text-3xl font-bold text-indigo-800" id="dashboard-title">Creator Dashboard</h1>
+      <div class="flex gap-4 items-center">
+        <select id="language-select" class="border border-indigo-600 text-indigo-600 py-2 px-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          <option value="en">English</option>
+          <option value="pt">Português</option>
+        </select>
+        <button id="logout-btn" class="text-sm text-gray-500 hover:text-red-500 transition-colors">Logout</button>
+      </div>
+    </header>
+
+    <div id="access-denied" class="hidden bg-white rounded-xl p-8 shadow-lg text-center">
+      <h2 class="text-2xl font-bold text-indigo-800 mb-4">Access Denied</h2>
+      <p class="text-gray-600 mb-6">Only the creator (LUNAS) can access the Creator Dashboard.</p>
+      <a href="index.html" class="bg-indigo-600 text-white py-2 px-6 rounded-lg hover:bg-indigo-700 transition-colors">Back to Home</a>
+    </div>
+
+    <div id="dashboard-content" class="hidden">
+      <!-- Usuários -->
+      <section class="mb-8">
+        <h2 class="text-xl font-semibold text-indigo-800 mb-4" id="users-title">User Statistics</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-white rounded-xl p-6 shadow-lg">
+            <p class="text-sm text-gray-500" id="total-users-label">Total Registered Users</p>
+            <p class="text-3xl font-bold text-indigo-800" id="total-users">0</p>
+          </div>
+          <div class="bg-white rounded-xl p-6 shadow-lg">
+            <p class="text-sm text-gray-500" id="active-users-label">Active Users</p>
+            <p class="text-3xl font-bold text-indigo-800" id="active-users">0</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gráficos -->
+      <section class="mb-8">
+        <h2 class="text-xl font-semibold text-indigo-800 mb-4" id="charts-title">Performance & Usage</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div class="bg-white rounded-xl p-6 shadow-lg h-[18rem] sm:h-[14rem]">
+            <h3 class="text-lg font-medium text-gray-700 mb-4" id="performance-chart-title">Average WPM by Difficulty</h3>
+            <canvas id="performance-chart" class="w-full h-full"></canvas>
+          </div>
+          <div class="bg-white rounded-xl p-6 shadow-lg h-[18rem] sm:h-[14rem]">
+            <h3 class="text-lg font-medium text-gray-700 mb-4" id="usage-chart-title">Daily Usage</h3>
+            <canvas id="usage-chart" class="w-full h-full"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Acessos -->
+      <section class="mb-8">
+        <h2 class="text-xl font-semibold text-indigo-800 mb-4" id="access-stats-title">Site Access Statistics</h2>
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+          <table class="w-full">
+            <thead>
+              <tr class="bg-indigo-50">
+                <th class="py-3 px-4 text-left text-gray-700" id="total-visits-label">Total Visits</th>
+                <th class="py-3 px-4 text-left text-gray-700" id="unique-visitors-label">Unique Visitors</th>
+                <th class="py-3 px-4 text-left text-gray-700" id="home-page-label">Home Page</th>
+                <th class="py-3 px-4 text-left text-gray-700" id="typing-page-label">Typing Page</th>
+                <th class="py-3 px-4 text-left text-gray-700" id="leaderboard-page-label">Leaderboard Page</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="py-3 px-4 border-b border-gray-200" id="total-visits">0</td>
+                <td class="py-3 px-4 border-b border-gray-200" id="unique-visitors">0</td>
+                <td class="py-3 px-4 border-b border-gray-200" id="home-page">0</td>
+                <td class="py-3 px-4 border-b border-gray-200" id="typing-page">0</td>
+                <td class="py-3 px-4 border-b border-gray-200" id="leaderboard-page">0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Leaderboard -->
+      <section class="mb-8">
+        <h2 class="text-xl font-semibold text-indigo-800 mb-4" id="leaderboard-title">Top Players</h2>
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+          <table class="w-full">
+            <thead>
+              <tr class="bg-indigo-50">
+                <th class="py-3 px-4 text-left text-gray-700" id="rank-label">Rank</th>
+                <th class="py-3 px-4 text-left text-gray-700" id="username-label">Username</th>
+                <th class="py-3 px-4 text-left text-gray-700" id="max-wpm-label">Max WPM</th>
+                <th class="py-3 px-4 text-left text-gray-700" id="level-label">Level</th>
+                <th class="py-3 px-4 text-left text-gray-700" id="record-date-label">Record Date</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboard-table"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Todos os Jogadores -->
+      <section>
+        <h2 class="text-xl font-semibold text-indigo-800 mb-4" id="all-players-title">All Players</h2>
+        <div class="bg-white rounded-xl shadow-lg overflow-x-auto max-h-[20rem]">
+          <table class="w-full">
+            <thead>
+              <tr class="bg-indigo-50">
+                <th class="py-3 px-4 text-left text-gray-700 cursor-pointer" id="all-username-label" data-sort="username">Username</th>
+                <th class="py-3 px-4 text-left text-gray-700 cursor-pointer" id="all-level-label" data-sort="level">Level</th>
+                <th class="py-3 px-4 text-left text-gray-700 cursor-pointer" id="avg-wpm-label" data-sort="avgWpm">Avg WPM</th>
+                <th class="py-3 px-4 text-left text-gray-700 cursor-pointer" id="tests-taken-label" data-sort="tests">Tests Taken</th>
+                <th class="py-3 px-4 text-left text-gray-700" id="join-date-label">Join Date</th>
+              </tr>
+            </thead>
+            <tbody id="all-players-table"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

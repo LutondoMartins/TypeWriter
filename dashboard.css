@@ -1,0 +1,114 @@
+body {
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .theme-dark {
+    background: linear-gradient(to bottom right, #1F2937, #4B5563);
+    color: #F3F4F6;
+  }
+  .theme-dark .bg-white {
+    background-color: #374151;
+  }
+  .theme-dark .text-gray-700 {
+    color: #D1D5DB;
+  }
+  .theme-dark .text-indigo-800 {
+    color: #93C5FD;
+  }
+  .theme-dark .bg-indigo-50 {
+    background-color: #1E40AF;
+  }
+  .theme-dark .border-gray-200 {
+    border-color: #4B5563;
+  }
+  
+  .theme-neon {
+    background: linear-gradient(to bottom right, #000000, #1E1E1E);
+    color: #00FF88;
+  }
+  .theme-neon .bg-white {
+    background-color: #1A1A1A;
+  }
+  .theme-neon .text-gray-700 {
+    color: #00FF88;
+  }
+  .theme-neon .text-indigo-800 {
+    color: #FF00FF;
+  }
+  .theme-neon .bg-indigo-50 {
+    background-color: #4A0072;
+  }
+  .theme-neon .border-gray-200 {
+    border-color: #333333;
+  }
+  
+  .chart-container {
+    max-height: 18rem; /* 288px em desktop */
+  }
+  
+  .leaderboard-rank-1 {
+    background-color: #FFD70033; /* Ouro com transparência */
+  }
+  .leaderboard-rank-2 {
+    background-color: #C0C0C033; /* Prata com transparência */
+  }
+  .leaderboard-rank-3 {
+    background-color: #CD7F3233; /* Bronze com transparência */
+  }
+  
+  .theme-dark .leaderboard-rank-1 {
+    background-color: #FFD70044;
+  }
+  .theme-dark .leaderboard-rank-2 {
+    background-color: #C0C0C044;
+  }
+  .theme-dark .leaderboard-rank-3 {
+    background-color: #CD7F3244;
+  }
+  
+  .theme-neon .leaderboard-rank-1 {
+    background-color: #FFFF0044;
+  }
+  .theme-neon .leaderboard-rank-2 {
+    background-color: #00FF8844;
+  }
+  .theme-neon .leaderboard-rank-3 {
+    background-color: #FF00FF44;
+  }
+  
+  @media (max-width: 640px) {
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    h1 {
+      font-size: 1.5rem;
+    }
+    header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    #language-select {
+      width: 100%;
+    }
+    #logout-btn {
+      width: 100%;
+      text-align: right;
+    }
+    #access-denied {
+      padding: 1rem;
+    }
+    .grid-cols-1 {
+      grid-template-columns: 1fr;
+    }
+    .chart-container {
+      max-height: 14rem; /* 224px em mobile */
+    }
+    table {
+      font-size: 0.875rem;
+    }
+    th, td {
+      padding: 0.5rem;
+    }
+  }
